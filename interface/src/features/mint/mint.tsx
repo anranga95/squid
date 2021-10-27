@@ -33,9 +33,11 @@ export const Mint = () => {
 
     const getUserTokenCount = async () => {
         try {
-            const result = await instance.balanceOf(account);
-            setUserBalance(result.toNumber())
-
+            const result = (await instance.balanceOf(account)).toNumber();
+            setUserBalance(result);
+            if(result > 0) {
+                await getUserTokenIds();
+            }
         } catch (e) {
             console.error(e);
         }
@@ -45,7 +47,7 @@ export const Mint = () => {
         try {
             const result = await instance.tokensOfOwner(account);
             const mappedIds = result.map(x => x.toNumber());
-            setUserTokenIds((arr) => mappedIds);
+            setUserTokenIds(mappedIds);
         } catch (e) {
             console.error(e);
         }
@@ -69,8 +71,9 @@ export const Mint = () => {
                 const newId = args[1].toNumber();
                 const alreadyIn = userTokenIds.find(x => x == newId);
                 if(!alreadyIn) {
-                    console.log(newId);
-                    setUserTokenIds((arr) => [...userTokenIds, newId]);
+                    setUserTokenIds((arr) => [...arr, newId]);
+                    setUserBalance(userBalance + 1);
+                    setTotalSupply(totalSupply - 1);
                 }
             }
         })
@@ -82,9 +85,6 @@ export const Mint = () => {
     return (
         <>
         {active && account && <Text>You have {userBalance} cards</Text>}
-        {active && userBalance > 0 && !userTokenIds.length && 
-            <Box as="button" onClick={getUserTokenIds}>Click to see Ids</Box>}
-        <br/>
         {active && userBalance > 0 && userTokenIds.length > 0 && <Box as="button" onClick={getUserTokenIds}>{JSON.stringify(userTokenIds)}</Box>}
         <br/>
         {instance && <Text>There are {totalSupply} cards remaining</Text>}
