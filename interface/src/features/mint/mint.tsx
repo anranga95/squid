@@ -16,7 +16,7 @@ export const Mint = () => {
         if(!instance) return;
         getTotalSupply();
     }, [instance]);
-
+    
     useEffect(() => {
         if(!account) return
         getUserTokenCount();
@@ -45,7 +45,7 @@ export const Mint = () => {
         try {
             const result = await instance.tokensOfOwner(account);
             const mappedIds = result.map(x => x.toNumber());
-            setUserTokenIds(mappedIds);
+            setUserTokenIds((arr) => mappedIds);
         } catch (e) {
             console.error(e);
         }
@@ -53,11 +53,30 @@ export const Mint = () => {
 
     const mintToken = async () => {
         try {
+            await setupListeners();
             const tx = await instance.createCard();
             await tx.wait();
         } catch (e) {
             console.error(e);
         }
+    }
+
+    const setupListeners = async () => {
+        const startBlockNumber = await ethers.getDefaultProvider("http://localhost:8545").getBlockNumber();
+        instance.on(instance.filters.NewCard(account), (...args) => {
+            const ev = args[2];
+            if(ev.blockNumber > startBlockNumber) { // >= off local?
+                const newId = args[1].toNumber();
+                const alreadyIn = userTokenIds.find(x => x == newId);
+                if(!alreadyIn) {
+                    console.log(newId);
+                    setUserTokenIds((arr) => [...userTokenIds, newId]);
+                }
+            }
+        })
+
+        const events = await instance.queryFilter(instance.filters.NewCard(account));
+        console.log('events', events);
     }
 
     return (
@@ -66,7 +85,7 @@ export const Mint = () => {
         {active && userBalance > 0 && !userTokenIds.length && 
             <Box as="button" onClick={getUserTokenIds}>Click to see Ids</Box>}
         <br/>
-        {active && userBalance > 0 && userTokenIds.length > 0 && <Text>{JSON.stringify(userTokenIds)}</Text>}
+        {active && userBalance > 0 && userTokenIds.length > 0 && <Box as="button" onClick={getUserTokenIds}>{JSON.stringify(userTokenIds)}</Box>}
         <br/>
         {instance && <Text>There are {totalSupply} cards remaining</Text>}
         <br/>

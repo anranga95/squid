@@ -26,8 +26,8 @@ contract CardBase  {
     mapping (address => uint256) ownerToCardCount;
 
     // events
-    event Transfer(address from, address to, uint256 tokenID);
-    event NewCard(address owner, uint256 cardID);
+    event Transfer(address indexed from, address indexed to, uint256 tokenID);
+    event NewCard(address indexed owner, uint256 cardID);
 
     function greet() public view returns (string memory) {
         return "greet";
