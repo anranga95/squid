@@ -1,7 +1,5 @@
 import { ethers } from "ethers";
 import { useEffect, useState } from "react"
-import abi from "./abi.json";
-import pcabi from "./pcabi.json";
 import { useWeb3React } from "@web3-react/core";
 import { useGreeterContract } from "../../contracts/useContract";
 
