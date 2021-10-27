@@ -26,8 +26,8 @@ export const Mint = () => {
 
     const getTotalSupply = async () => {
         try {
-            const test = await instance.totalSupply();
-            setTotalSupply(test.toNumber())
+            const result = await instance.totalSupply();
+            setTotalSupply(result.toNumber())
         } catch (e) {
             console.error(e);
         }
@@ -35,8 +35,9 @@ export const Mint = () => {
 
     const getUserTokenCount = async () => {
         try {
-            const test = await instance.balanceOf(account);
-            setUserBalance(test.toNumber())
+            const result = await instance.balanceOf(account);
+            setUserBalance(result.toNumber())
+
         } catch (e) {
             console.error(e);
         }
@@ -44,8 +45,8 @@ export const Mint = () => {
 
     const getUserTokenIds = async () => {
         try {
-            const test = await instance.tokensOfOwner(account);
-            const mappedIds = test.map(x => x.toNumber());
+            const result = await instance.tokensOfOwner(account);
+            const mappedIds = result.map(x => x.toNumber());
             setUserTokenIds(mappedIds);
         } catch (e) {
             console.error(e);
@@ -54,8 +55,8 @@ export const Mint = () => {
 
     const mintToken = async () => {
         try {
-            const test = await instance.createCard();
-            await test.wait();
+            const tx = await instance.createCard();
+            await tx.wait();
         } catch (e) {
             console.error(e);
         }
@@ -64,11 +65,10 @@ export const Mint = () => {
     return (
         <>
         {active && account && <Text>You have {userBalance} cards</Text>}
-        {active && userBalance && !userTokenIds.length && 
+        {active && userBalance > 0 && !userTokenIds.length && 
             <Box as="button" onClick={getUserTokenIds}>Click to see Ids</Box>}
         <br/>
-        {active && userBalance && userTokenIds.length > 0 && 
-            userTokenIds.map(id => <Text>{id}</Text>)}
+        {active && userBalance > 0 && userTokenIds.length > 0 && <Text>{JSON.stringify(userTokenIds)}</Text>}
         <br/>
         {instance && <Text>There are {totalSupply} cards remaining</Text>}
         <br/>
