@@ -73,19 +73,20 @@ contract PlayerCard is CardBase {
 		if (tokenCount == 0) { // No tokens, return an empty array
 			return new uint256[](0);
 		} else {
-			uint256[] memory result = new uint256[](tokenCount);
-			uint256 totalTokens = totalSupply();
-			uint256 resultIndex = 0;
+			// uint256[] memory result = new uint256[](tokenCount);
+			// uint256 totalTokens = totalSupply();
+			// uint256 resultIndex = 0;
 
-			uint256 cardID;
-			for (cardID = 1; cardID <= totalTokens; cardID++) {
-				if (cardIdToOwner[cardID] == _owner) {
-					result[resultIndex] = cardID;
-					resultIndex++;
-				}
-			}
+			// uint256 cardID;
+			// for (cardID = 1; cardID <= totalTokens; cardID++) {
+			// 	if (cardIdToOwner[cardID] == _owner) {
+			// 		result[resultIndex] = cardID;
+			// 		resultIndex++;
+			// 	}
+			// }
 
-			return result;
+			// return result;
+			return ownerToCardIds[_owner];
 		}
 	}
 }
