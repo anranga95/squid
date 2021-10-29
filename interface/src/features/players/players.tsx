@@ -33,6 +33,11 @@ export const Players = () => {
                     <Td>Ranga</Td>
                     <Td>0xab....28db</Td>
                 </Tr>
+                <Tr>
+                    <Td>498</Td>
+                    <Td>Chris</Td>
+                    <Td>0xab....28db</Td>
+                </Tr>
             </Tbody>
             </Table>
         </Box>
