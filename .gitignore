@@ -11,3 +11,7 @@ devops/artifacts
 #React
 interface/node_modules
 interface/.next
+interface/**/*.json
+
+interface/src/typechain
+interface/**/localhost

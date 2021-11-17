@@ -23,6 +23,7 @@ export const useGreeterContract = (active: boolean) => {
 
   const initializeSigner = async () => {
     if(!library) return;
+      // TODO: replace with contract.connect?
       const signer = await library.getSigner(account);
       const signerInstance = new ethers.Contract(
         deploymentJson.address,

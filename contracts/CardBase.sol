@@ -18,7 +18,7 @@ contract CardBase  {
 
     PlayerCard[] cards;
 
-    uint64 public constant MAX_CARDS = 5000;
+    uint64 public constant MAX_CARDS = 10000;
 
     mapping (uint256 => address) public cardIdToOwner;
 	mapping (address => uint256[]) public ownerToCardIds;
@@ -28,11 +28,7 @@ contract CardBase  {
     // events
     event Transfer(address indexed from, address indexed to, uint256 tokenID);
     event NewCard(address indexed owner, uint256 cardID);
-
-    function greet() public view returns (string memory) {
-        return "greet";
-    }
-
+    
     function _exists(uint256 tokenId) internal view returns (bool) {
         return cardIdToOwner[tokenId] != address(0);
     }

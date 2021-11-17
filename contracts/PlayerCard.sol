@@ -86,6 +86,7 @@ contract PlayerCard is CardBase {
 			}
 
 			return result;
+			// return ownerToCardIds[_owner];
 		}
 	}
 }
