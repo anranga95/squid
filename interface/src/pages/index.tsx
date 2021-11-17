@@ -22,16 +22,20 @@ import { Footer } from '../chakra-components/Footer'
 import { Connect } from '../features/wallet/connect';
 import { Prize } from '../features/prize/prize';
 import { Players } from '../features/players/players';
-import { Mint } from '../features/mint/mint'
+import { Mint } from '../features/mint/mint';
+import { CountDown } from '../features/countdown/countdown';
+
 
 const Index = () => (
   <Container>
-    <Hero title='Crypto Squid Games'/>
+    {/* <Hero title='Crypto Squid Games'/> */}
     <br/><br/>
     <Connect />
     <br/>
     <br/>
     <Mint/>
+    <br/>
+    <CountDown />
     <br/>
     <Divider />    
     <br/>
