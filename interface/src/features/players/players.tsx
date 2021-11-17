@@ -13,29 +13,24 @@ export const Players = () => {
                 <Thead>
                 <Tr>
                     <Th>Player Number</Th>
-                    {/* <Th>Username</Th> */}
                     <Th>Address</Th>
                     </Tr>
                 </Thead>
             <Tbody>
                 <Tr>
                     <Td>501</Td>
-                    {/* <Td>Jordan</Td> */}
                     <Td>0xab....28db</Td>
                 </Tr>
                 <Tr>
                     <Td>500</Td>
-                    {/* <Td>Mig</Td> */}
                     <Td>0xab....28db</Td>
                 </Tr>
                 <Tr>
                     <Td>499</Td>
-                    {/* <Td>Ranga</Td> */}
                     <Td>0xab....28db</Td>
                 </Tr>
                 <Tr>
                     <Td>498</Td>
-                    <Td>Chris</Td>
                     <Td>0xab....28db</Td>
                 </Tr>
             </Tbody>
